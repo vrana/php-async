@@ -1,7 +1,5 @@
 <?php
-include __DIR__ . "/../MysqliAsync.php";
-
-$db = new MysqliAsync("localhost");
+include __DIR__ . "/db.inc.php";
 
 $db->test1("SELECT 'test1'");
 $db->test2("SELECT 'test2'");
