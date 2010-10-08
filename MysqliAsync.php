@@ -44,6 +44,9 @@ class MysqliAsync {
 		}
 		
 		// get data
+		if (!isset($this->connections[$name])) { // wrong identifier
+			return false;
+		}
 		//! handle second call with the same $name
 		$connection = $this->connections[$name];
 		do {
