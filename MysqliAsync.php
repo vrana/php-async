@@ -18,6 +18,14 @@ class MysqliAsync {
 		$this->credentials = func_get_args();
 	}
 	
+	/** Close all opened connections
+	*/
+	function __destruct() {
+		foreach ($this->connections as $connection) {
+			$connection->close();
+		}
+	}
+	
 	/** Execute query or get its data
 	* @param string query identifier
 	* @param array array(string $query, [array $credentials]) for executing query, array() for getting data
