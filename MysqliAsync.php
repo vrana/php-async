@@ -33,8 +33,12 @@ class MysqliAsync {
 	*/
 	function __call($name, array $args) {
 		if ($args) { // execute query
-			list($query, $credentials) = $args;
-			$connection = call_user_func_array('mysqli_connect', (array) $credentials + $this->credentials);
+			$query = $args[0];
+			$credentials = $this->credentials;
+			if (isset($args[1])) {
+				$credentials = $args[1] + $credentials;
+			}
+			$connection = call_user_func_array('mysqli_connect', $credentials);
 			$this->connections[$name] = $connection;
 			return $connection->query($query, MYSQLI_ASYNC);
 		}
@@ -44,7 +48,7 @@ class MysqliAsync {
 		$connection = $this->connections[$name];
 		do {
 			$links = $errors = $reject = $this->connections;
-			mysqli_poll($links, $errors, $reject, $this->wait);
+			mysqli_poll($links, $errors, $reject, $this->timeout);
 		} while (!in_array($connection, $links, true) && !in_array($connection, $errors, true) && !in_array($connection, $reject, true));
 		
 		return $connection->reap_async_query();
