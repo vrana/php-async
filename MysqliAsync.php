@@ -49,6 +49,7 @@ class MysqliAsync {
 		}
 		//! handle second call with the same $name
 		$connection = $this->connections[$name];
+		
 		do {
 			$links = $errors = $reject = $this->connections;
 			mysqli_poll($links, $errors, $reject, $this->timeout);
