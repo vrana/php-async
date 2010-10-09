@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/db.inc.php";
+require_once __DIR__ . "/db.inc.php";
 
 $start = microtime(true);
 

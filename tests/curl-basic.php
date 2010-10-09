@@ -1,5 +1,5 @@
 <?php
-include dirname(__FILE__) . "/../CurlAsync.php";
+require_once dirname(__FILE__) . "/../CurlAsync.php";
 
 $http = new CurlAsync;
 
